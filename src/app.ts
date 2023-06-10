@@ -13,9 +13,6 @@ rest.use(express.json());
 
 rest.post("/llm", async (req: Request, res: Response) => {
   console.log(req.body);
-  llmProcess.stdin.cork();
-  llmProcess.stdin.write(req.body.prompt + "\r\n");
-  llmProcess.stdin.uncork();
 
   const llmOutput = await new Promise((resolve, reject) => {
     console.log("Waiting for model output...");
@@ -34,6 +31,10 @@ rest.post("/llm", async (req: Request, res: Response) => {
       console.error(`Model error: ${data}`);
       reject(data);
     });
+
+    llmProcess.stdin.cork();
+    llmProcess.stdin.write(req.body.prompt + "\r\n");
+    llmProcess.stdin.uncork();
   });
 
   res.json({ llmOutput });
