@@ -3,7 +3,7 @@ import { spawn } from "child_process";
 import cors from "cors";
 
 // Spawn llm process
-const llmProcess = spawn("python ~/WizardLM-30B-Uncensored/WizardLM/src/inference_wizardlm.py --base_model=~/WizardLM-30B-Uncensored", { shell: true });
+const llmProcess = spawn("python ~/WizardLM-30B-Uncensored/WizardLM/src/inference_wizardlm.py --base_model=../WizardLM-30B-Uncensored", { shell: true });
 llmProcess.stdout.setEncoding("utf8");
 llmProcess.stdin.setDefaultEncoding("utf8");
 
