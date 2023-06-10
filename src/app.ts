@@ -16,6 +16,7 @@ rest.post('/llm', async (req: Request, res: Response) => {
   llmProcess.stdin.cork();
   llmProcess.stdin.write(req.body.prompt + '\r\n');
   llmProcess.stdin.uncork();
+  console.log('Weewoo')
 
   const llmOutput = await new Promise((resolve, reject) => {
     llmProcess.stdout.on('data', data => {
