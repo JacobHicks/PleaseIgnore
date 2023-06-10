@@ -33,8 +33,6 @@ rest.post("/llm", async (req: Request, res: Response) => {
       console.error(`Model error: ${data}`);
       reject(data);
     });
-
-    res.json({ llmOutput });
   });
 });
 
