@@ -18,6 +18,7 @@ rest.post("/llm", async (req: Request, res: Response) => {
   llmProcess.stdin.uncork();
 
   const llmOutput = await new Promise((resolve, reject) => {
+    console.log("Waiting for model output...");
     llmProcess.stdout.on("data", data => {
       console.info(`Model output: ${data}`);
       try {
