@@ -34,6 +34,8 @@ rest.post("/llm", async (req: Request, res: Response) => {
       reject(data);
     });
   });
+
+  res.json({ llmOutput });
 });
 
 rest.listen(8000);
