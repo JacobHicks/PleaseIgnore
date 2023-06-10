@@ -3,7 +3,7 @@ import { spawn } from "child_process";
 import cors from 'cors';
 
 // Spawn llm process
-const llmProcess = spawn('~/WizardLM-30B-Uncensored/WizardLM/src/inference_wizardlm.py --base_model=~/WizardLM-30B-Uncensored')
+const llmProcess = spawn('python ~/WizardLM-30B-Uncensored/WizardLM/src/inference_wizardlm.py --base_model=~/WizardLM-30B-Uncensored')
 llmProcess.stdout.setEncoding('utf8');
 
 const rest: Express = express();
