@@ -4,7 +4,8 @@ import cors from 'cors';
 
 // Spawn llm process
 const llmProcess = spawn('python ~/WizardLM-30B-Uncensored/WizardLM/src/inference_wizardlm.py --base_model=~/WizardLM-30B-Uncensored', {shell: true})
-llmProcess.stdout.setEncoding('utf8');
+llmProcess.stdout.setEncoding('utf-8');
+llmProcess.stdin.setDefaultEncoding('utf-8');
 
 const rest: Express = express();
 rest.use(cors());
@@ -12,7 +13,9 @@ rest.use(express.json());
 
 rest.post('/llm', async (req: Request, res: Response) => {
   console.log(req.body);
-  llmProcess.stdin.write(req.body.prompt + '\n');
+  llmProcess.stdin.cork();
+  llmProcess.stdin.write(req.body.prompt + '\r\n');
+  llmProcess.stdin.uncork();
 
   const llmOutput = await new Promise((resolve, reject) => {
     llmProcess.stdout.on('data', data => {
