@@ -10,6 +10,7 @@ llmProcess.stdin.setDefaultEncoding("utf8");
 let modelLoaded = false;
 console.log("Waiting for model to load...");
 llmProcess.stdout.on("data", data => {
+  console.log(`Model output: ${data}`);
   if (data.includes('#')) {
     console.log("Model loaded!");
     modelLoaded = true;
@@ -27,7 +28,6 @@ rest.post("/llm", async (req: Request, res: Response) => {
     const llmOutput = await new Promise((resolve) => {
       console.log("Waiting for model output...");
       llmProcess.stdout.on("data", data => {
-        console.info(`Model output: ${data}`);
         try {
           const parsedOutput: { id: number, instruction: string, wizardlm: string } = JSON.parse(data);
           resolve(parsedOutput.wizardlm);
